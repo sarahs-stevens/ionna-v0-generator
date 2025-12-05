@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IONNA V0 Prompt Generator</title>
+    <title>IONNA V0 Prompt Generator V7.2.4</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -28,7 +28,21 @@
         .subtitle {
             text-align: center;
             color: #666;
+            margin-bottom: 10px;
+        }
+        .version-badge {
+            text-align: center;
+            background: linear-gradient(135deg, #002855 0%, #003D82 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
             margin-bottom: 30px;
+        }
+        .badge-container {
+            text-align: center;
         }
         .form-group {
             margin-bottom: 20px;
@@ -38,6 +52,9 @@
             font-weight: 600;
             margin-bottom: 5px;
             color: #002855;
+        }
+        .required {
+            color: #dc3545;
         }
         input[type="text"], select, textarea {
             width: 100%;
@@ -54,6 +71,15 @@
         textarea {
             min-height: 80px;
             resize: vertical;
+        }
+        .section-header {
+            background: #f0f8ff;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-weight: 700;
+            color: #002855;
+            margin: 30px 0 20px 0;
+            border-left: 4px solid #003D82;
         }
         .generate-btn {
             background: linear-gradient(135deg, #002855 0%, #003D82 100%);
@@ -105,53 +131,68 @@
             border-radius: 6px;
             cursor: pointer;
             margin-top: 15px;
-            transition: background 0.2s;
+            transition: all 0.2s;
         }
         .copy-btn:hover {
             background: #218838;
+            transform: translateY(-1px);
         }
         .copy-btn.copied {
-            background: #5cb85c;
+            background: #1e7e34;
         }
-        .required {
-            color: #dc3545;
-        }
-        .section-header {
-            background: linear-gradient(135deg, #002855 0%, #003D82 100%);
-            color: white;
-            padding: 10px 15px;
-            margin: 20px -30px 20px -30px;
-            font-weight: 600;
+        .help-text {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>IONNA V0 Prompt Generator</h1>
-        <p class="subtitle">Fill out the form below to generate your V0 prompt</p>
+        <h1>ðŸ”Œ IONNA V0 Prompt Generator</h1>
+        <p class="subtitle">Desktop Review - No Survey Required</p>
+        <div class="badge-container">
+            <span class="version-badge">V7.2.4 | 15 Gates | 37 Error Codes | Two-Stage Fabrication Prevention</span>
+        </div>
 
         <form id="v0Form">
-            <div class="section-header">SITE INFORMATION</div>
-            
+            <div class="section-header">SITE IDENTIFICATION</div>
+
             <div class="form-group">
                 <label>Site Code <span class="required">*</span></label>
-                <input type="text" id="siteCode" placeholder="e.g., CA-0095" required>
+                <input type="text" id="siteCode" required placeholder="e.g., CA-0086">
+                <div class="help-text">Format: ST-#### (e.g., CA-0086, NJ-0030)</div>
             </div>
 
-            <div class="section-header">SITE CONFIGURATION</div>
+            <div class="section-header">CHARGER CONFIGURATION</div>
 
             <div class="form-group">
                 <label>Charger Count <span class="required">*</span></label>
-                <input type="text" id="chargerCount" placeholder="e.g., 8" required>
+                <select id="chargerCount" required>
+                    <option value="">Select...</option>
+                    <option value="4">4</option>
+                    <option value="6">6</option>
+                    <option value="8">8</option>
+                    <option value="10">10</option>
+                    <option value="12">12</option>
+                    <option value="Other">Other</option>
+                </select>
             </div>
 
             <div class="form-group">
-                <label>Config <span class="required">*</span></label>
+                <label>Config (Chargers per Row) <span class="required">*</span></label>
                 <select id="config" required>
                     <option value="">Select...</option>
-                    <option value="Pull-in">Pull-in</option>
-                    <option value="Pull-through">Pull-through</option>
-                    <option value="Combo">Combo</option>
+                    <option value="2x4">2x4</option>
+                    <option value="2x5">2x5</option>
+                    <option value="2x6">2x6</option>
+                    <option value="3x2">3x2</option>
+                    <option value="3x3">3x3</option>
+                    <option value="3x4">3x4</option>
+                    <option value="4x2">4x2</option>
+                    <option value="4x3">4x3</option>
+                    <option value="Other">Other</option>
                 </select>
             </div>
 
@@ -159,33 +200,37 @@
                 <label>Charger Location <span class="required">*</span></label>
                 <select id="location" required>
                     <option value="">Select...</option>
-                    <option value="Head">Head</option>
-                    <option value="Between">Between</option>
-                    <option value="Combo">Combo</option>
+                    <option value="Paved">Paved</option>
+                    <option value="Landscaped">Landscaped</option>
+                    <option value="Other">Other</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label>Existing Parking Stalls <span class="required">*</span></label>
-                <input type="text" id="existingStalls" placeholder="e.g., 45" required>
+                <input type="text" id="existingStalls" required placeholder="e.g., 50">
             </div>
+
+            <div class="section-header">SITE CLASSIFICATION</div>
 
             <div class="form-group">
                 <label>Site Type <span class="required">*</span></label>
                 <select id="siteType" required>
                     <option value="">Select...</option>
-                    <option value="Standard">Standard</option>
-                    <option value="Plus">Plus</option>
+                    <option value="Standard Primary">Standard Primary</option>
+                    <option value="Standard Accessory">Standard Accessory</option>
+                    <option value="Plus Base">Plus Base</option>
+                    <option value="Plus High">Plus High</option>
                 </select>
+                <div class="help-text">Standard = Chargers only | Plus = Chargers + Building (restroom/vending)</div>
             </div>
 
             <div class="form-group">
                 <label>Development Type <span class="required">*</span></label>
                 <select id="devType" required>
                     <option value="">Select...</option>
-                    <option value="Existing Lot">Existing Lot</option>
                     <option value="Greenfield">Greenfield</option>
-                    <option value="Vacant Lot">Vacant Lot</option>
+                    <option value="Redevelopment">Redevelopment</option>
                     <option value="Brownfield">Brownfield</option>
                 </select>
             </div>
@@ -194,10 +239,14 @@
                 <label>AHJ Use Classification <span class="required">*</span></label>
                 <select id="ahjUse" required>
                     <option value="">Select...</option>
-                    <option value="Accessory">Accessory</option>
-                    <option value="Primary">Primary</option>
+                    <option value="Accessory Use">Accessory Use</option>
+                    <option value="Primary Use">Primary Use</option>
+                    <option value="Mixed Use">Mixed Use</option>
+                    <option value="TBD">TBD</option>
                 </select>
             </div>
+
+            <div class="section-header">INFRASTRUCTURE</div>
 
             <div class="form-group">
                 <label>Transformer Location <span class="required">*</span></label>
@@ -317,17 +366,54 @@
             };
 
             const promptText = `IONNA V0 - Desktop Review (No Survey)
-VERSION: V7.1 (December 3, 2025)
+VERSION: V7.2.4 (December 4, 2025)
+CRITICAL: Two-Stage Fabrication Prevention + 14 Blocking Gates + 37 Error Codes
 
 SITE: ${formData.siteCode}
 
 NOTE: Location details will be extracted from uploaded documents.
 
+â›” CRITICAL ANTI-FABRICATION NOTICE â›”
+â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+
+TWO-STAGE FABRICATION PREVENTION ACTIVE:
+
+CHECKPOINT 1: Research Report (Gate 4.5)
+  â†’ All research findings MUST have verified sources
+  â†’ Blocks document generation if research fabricated
+  â†’ Saves 20-30 minutes by catching fabrication early
+
+CHECKPOINT 2: Final Deliverables (Gate 12)
+  â†’ All document fields MUST have verified sources
+  â†’ Blocks user delivery if fabrication detected
+  â†’ Professional standards enforced
+
+ABSOLUTE RULES:
+âœ“ Every populated field requires verified source citation
+âœ“ Source format: "Per [Document] [Section/Date]: [Finding]"
+âœ“ Survey-dependent fields: "[V1: Survey data required]"
+âœ“ Unknown data: Leave as [PLACEHOLDER-NAME]
+âœ— NEVER fabricate information
+âœ— NEVER guess or estimate without citation
+âœ— NEVER assume or infer without source
+
+SOURCE HIERARCHY (CANNOT OVERRIDE):
+1. Excel AHJ research files (HIGHEST PRIORITY)
+2. Test fit documents
+3. Survey data (ALTA/NSPS)
+4. Published documents (with URLs)
+
+FABRICATION = IMMEDIATE FAILURE
+ERR-040: Document fabrication â†’ Blocks delivery
+ERR-041: Research fabrication â†’ Blocks generation
+
+â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+
 ===============================================================================
 UPLOADS ATTACHED:
 ===============================================================================
 
-[ ] Excel AHJ Research File (REQUIRED - Priority 1)
+[ ] Excel AHJ Research File (REQUIRED - Priority 1 - HIGHEST SOURCE)
 [ ] EVPin Parcel Snip (REQUIRED - Priority 1)
 [ ] EVPin Zoning Snip (REQUIRED - Priority 1)
 [ ] Test Fit PDF - Clean (REQUIRED - Priority 1)
@@ -336,7 +422,7 @@ UPLOADS ATTACHED:
 [ ] Utility Correspondence (Optional)
 
 NOTE: If EVPin shows multiple utility options, verification will be performed 
-during extended research phase.
+during extended research phase with proper source documentation.
 
 ===============================================================================
 SITE CONFIGURATION:
@@ -375,17 +461,28 @@ ACTIVATION INSTRUCTIONS
 
 Claude: Before starting, READ V0 ACTIVATION INSTRUCTIONS from project knowledge.
 
-File: "V0_Activation_Instructions_V7.1.txt"
+File: "V0_Activation_Instructions_V7_2_4.txt"
 
 After reading activation instructions:
-1. Execute Phase 0 validation (6 steps)
+1. Execute Phase 0 validation (MANDATORY - 6 steps + anti-fabrication review)
 2. STOP and display validation report
 3. AWAIT user confirmation "PROCEED"
 4. Execute Phases 1-3 (data extraction + gap detection)
 5. Generate gap report with visual dashboard and cost projections
-6. STOP and AWAIT user approval "APPROVED - PROCEED WITH RESEARCH"
-7. Execute Phases 4-6 (research + generation + QA)
-8. Deliver: Gap Report + DDM + TFC
+6. **Gate 4.5: VERIFY ALL RESEARCH SOURCES** â† NEW CHECKPOINT
+7. STOP and AWAIT user approval "APPROVED - PROCEED WITH GENERATION"
+8. Execute Phases 5-6 (generation + QA with source verification)
+9. **Gate 12: VERIFY ALL DELIVERABLE SOURCES** â† FINAL CHECKPOINT
+10. Deliver: Gap Report + DDM + TFC (all fully sourced and verified)
+
+V7.2.4 ENHANCEMENTS:
+âœ“ Phase 0: Mandatory pre-flight (Gate 0)
+âœ“ Gate 4.5: Research report source verification (NEW - prevents wasted work)
+âœ“ Gate 12: Deliverable source verification (ensures professional quality)
+âœ“ ERR-040/ERR-041: Fabrication detection at both stages
+âœ“ 15 blocking gates total
+âœ“ 36 error codes (16 P0 critical)
+âœ“ Zero fabrication tolerance - ABSOLUTE
 
 ===============================================================================
 USER: ATTACHMENTS READY - EXECUTING V0 GENERATION
@@ -400,7 +497,7 @@ USER: ATTACHMENTS READY - EXECUTING V0 GENERATION
             const text = document.getElementById('generatedText').textContent;
             navigator.clipboard.writeText(text).then(function() {
                 const btn = document.getElementById('copyBtn');
-                btn.textContent = '✓ Copied!';
+                btn.textContent = 'âœ“ Copied!';
                 btn.classList.add('copied');
                 setTimeout(function() {
                     btn.textContent = 'Copy to Clipboard';
